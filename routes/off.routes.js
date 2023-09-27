@@ -20,7 +20,8 @@ offRoutes.post("/add", (req, res, next) => {
 
 offRoutes.get("/list", (req, res, next) => {
   try {
-    let getAll = `SELECT * FROM Offs`;
+    let getAll = `SELECT Offs.id , Offs.code, Offs.date,Offs.isActive,Offs.percent, Admins.first_name as adminID , Products.title as productID FROM Offs INNER JOIN Admins ON Admins.id = Offs.adminID INNER JOIN Products ON Products.id = Offs.productID;
+    `;
     connection.query(getAll, (err, results) => {
       if (err) {
         res.send(null);
