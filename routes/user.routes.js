@@ -5,7 +5,7 @@ const userRoutes = require("express").Router();
 userRoutes.post("/add", (req, res, next) => {
   try {
     const body = req.body;
-    const addUpdateQuery = `INSERT INTO Users VALUES (NULL,${body.first_name},${body.last_name},${body.username},${body.password},${body.phone},${body.city},${body.email},${body.address},${body.score})`;
+    const addUpdateQuery = `INSERT INTO Users VALUES (NULL,"${body.first_name}","${body.last_name}","${body.username}","${body.password}",${body.phone},"${body.city}","${body.email}","${body.address}",${body.score})`;
     connection.query(addUpdateQuery, (err, results) => {
       if (err) {
         res.send(null);
