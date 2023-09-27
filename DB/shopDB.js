@@ -47,7 +47,7 @@ let queryProduct = `CREATE TABLE IF NOT EXISTS ${tableNameProduct}
         title VARCHAR(100) NOT NULL,
         price INT(100) NOT NULL,
         count INT(100) NOT NULL,
-        img VARCHAR(100) NOT NULL,
+        img VARCHAR(100) DEFAULT "img.png",
         popularity INT(100) NOT NULL,
         sale INT(100) NOT NULL,
         colors INT(100) NOT NULL
@@ -59,14 +59,12 @@ connection.query(queryProduct, (err, rows) => {
   console.log(`Successfully Created Table - ${tableNameProduct}`);
 });
 
-
-
 let tableNameUsers = "Users";
 
 // Query to create table Users
 let queryUsers = `CREATE TABLE IF NOT EXISTS ${tableNameUsers} 
       (
-        id INT AUTO_INCREMENT PRIMARY KEY, 
+        id INT(100) AUTO_INCREMENT PRIMARY KEY, 
         first_name VARCHAR(100) NOT NULL,
         last_name VARCHAR(100) NOT NULL,
         username VARCHAR(100) NOT NULL,
@@ -89,13 +87,16 @@ let tableNameComments = "Comments";
 let queryComment = `CREATE TABLE IF NOT EXISTS ${tableNameComments}
       (
         id INT(100) AUTO_INCREMENT PRIMARY KEY,
+        title TEXT(1000) NOT NULL,
         body TEXT(1000) NOT NULL,
         date VARCHAR(100) NOT NULL,
         hour VARCHAR(100) NOT NULL,
         userID INT(100) NOT NULL,
+        FOREIGN KEY(userID)
+        REFERENCES Users(id),
         productID INT(100) NOT NULL,
-        FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-        FOREIGN KEY (productID) REFERENCES Products(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+        FOREIGN KEY(productID) 
+        REFERENCES Products(id)
       )`;
 
 connection.query(queryComment, (err, rows) => {
@@ -170,7 +171,5 @@ connection.query(queryAdmins, (err, rows) => {
 
   console.log(`Successfully Created Table - ${tableNameAdmins}`);
 });
-
-connection.end();
 
 module.exports = connection;
