@@ -4,7 +4,9 @@ const commentRoutes = require("express").Router();
 commentRoutes.post("/add", (req, res, next) => {
   try {
     const body = req.body;
-    const addUpdateQuery = `INSERT INTO Comments VALUES (NULL,${body.title},${body.body},${body.date},${body.hour},${body.userID},${body.productID})`;
+    const date = new Date().toLocaleDateString("fa-IR").toString();
+    const hour = new Date().getHours().toString();
+    const addUpdateQuery = `INSERT INTO Comments VALUES (NULL,"${body.title}","${body.body}","${date}","${hour}","${body.userID}","${body.productID}")`;
     connection.query(addUpdateQuery, (err, results) => {
       if (err) {
         res.send(null);
