@@ -20,7 +20,7 @@ orderRoutes.post("/add", (req, res, next) => {
 
 orderRoutes.get("/list", (req, res, next) => {
   try {
-    let getAll = `SELECT * FROM Orders`;
+    let getAll = `SELECT Orders.id , Orders.date, Orders.hour,Orders.price,Orders.off,Orders.sale,Orders.popularity,Orders.count,Orders.sale,Orders.isActive, Users.first_name as userID , Products.title as productID FROM Orders INNER JOIN Users ON Users.id = Orders.userID INNER JOIN Products ON Products.id = Orders.productID;`;
     connection.query(getAll, (err, results) => {
       if (err) {
         res.send(null);
