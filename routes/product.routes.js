@@ -1,11 +1,14 @@
 const connection = require("../DB/shopDB");
+const ListOfImagesForRequest = require("../utils/funcs");
+const { uploadFile } = require("../utils/multer");
 const productRoutes = require("express").Router();
 
-productRoutes.post("/add", (req, res, next) => {
+productRoutes.post("/add", uploadFile.array("img", 10), (req, res, next) => {
   try {
     const body = req.body;
-    const addUpdateQuery = `INSERT INTO Products VALUES (NULL,${body.title},${body.price},${body.count},${body.img},${body.popularity},${body.sales},${body.colors})`;
-    connection.query(addUpdateQuery, (err, results) => {
+    const img = ListOfImagesForRequest(req?.files || [], body.fileUploadPath);
+    const addQuery = `INSERT INTO Products VALUES (NULL,"${body.title}","${body.price}","${body.count}","${img}","${body.popularity}","${body.sale}","${body.colors}")`;
+    connection.query(addQuery, (err, results) => {
       if (err) {
         res.send(null);
       } else {
@@ -52,7 +55,7 @@ productRoutes.put("/:productID", (req, res, next) => {
   try {
     const body = req.body;
     const productID = req.params.productID;
-    let updateProductQuery = `UPDATE Products SET title=${body.title},price=${body.price},count=${body.count},img=${body.img},popularity=${body.popularity},sale=${body.sale},colors= ${body.colors} WHERE id=${productID}`;
+    let updateProductQuery = `UPDATE Products SET title="${body.title}",price=${body.price},count=${body.count},img="${body.img}",popularity=${body.popularity},sale=${body.sale},colors= ${body.colors} WHERE id="${productID}"`;
     connection.query(updateProductQuery, (err, results) => {
       if (err) {
         res.send(null);
