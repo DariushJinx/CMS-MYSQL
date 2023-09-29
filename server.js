@@ -7,6 +7,7 @@ const commentRoutes = require("./routes/comment.routes");
 const offRoutes = require("./routes/off.routes");
 const userRoutes = require("./routes/user.routes");
 const orderRoutes = require("./routes/orders.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 app.use(cors());
@@ -19,5 +20,6 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/offs", offRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/admins", adminRoutes);
 
 app.listen(3000);
