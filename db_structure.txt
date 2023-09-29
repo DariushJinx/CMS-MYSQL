@@ -7,6 +7,8 @@
     popularity
     sale
     colors
+    desc
+    categoryID(foreign key => id (Categories))
 
 2.Comments
     id
@@ -57,3 +59,17 @@
     username
     password
     task
+
+6.Categories
+    id
+    title
+
+7.Baskets
+    id
+    productID(foreign key => id (Products))
+    userID(foreign key => id (Users))
+    productImg(foreign key => img (Products))
+    productTitle(foreign key => title (Products))
+    productPrice(foreign key => price (Products))
+    productUrl(foreign key => url (Products))
+    count
