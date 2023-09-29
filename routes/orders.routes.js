@@ -5,9 +5,12 @@ const orderRoutes = require("express").Router();
 orderRoutes.post("/add", (req, res, next) => {
   try {
     const body = req.body;
-    const addQuery = `INSERT INTO Orders VALUES (NULL',${body.userID},${body.productID},${body.date},${body.hour},${body.price},${body.off},${body.sale},${body.popularity},${body.count})`;
+    const date = new Date().toLocaleDateString("fa-IR").toString();
+    const hour = new Date().getHours().toString();
+    const addQuery = `INSERT INTO Orders VALUES (NULL,"${body.userID}","${body.productID}","${date}","${hour}","${body.price}","${body.off}","${body.sale}","${body.popularity}","${body.count}","${body.isActive}")`;
     connection.query(addQuery, (err, results) => {
       if (err) {
+        console.log("err => ", err);
         res.send(null);
       } else {
         res.send(results);
@@ -51,7 +54,6 @@ orderRoutes.delete("/:orderID", (req, res, next) => {
 
 orderRoutes.put("/active-order/:orderID/:isActive", (req, res, next) => {
   try {
-    const body = req.body;
     let orderID = req.params.orderID;
     let isActive = req.params.isActive;
     let updateQuery = `UPDATE Orders SET isActive=${isActive} WHERE id=${orderID}`;
