@@ -5,9 +5,11 @@ const offRoutes = require("express").Router();
 offRoutes.post("/add", (req, res, next) => {
   try {
     const body = req.body;
-    const addUpdateQuery = `INSERT INTO Offs VALUES (NULL,${body.code},${body.percent},${body.adminID},${body.productID},${body.date},${body.isActive})`;
+    const date = new Date().toLocaleDateString("fa-IR").toString();
+    const addUpdateQuery = `INSERT INTO Offs VALUES (NULL,"${body.code}","${body.percent}","${body.adminID}","${body.productID}","${date}","${body.isActive}")`;
     connection.query(addUpdateQuery, (err, results) => {
       if (err) {
+        console.log(err);
         res.send(null);
       } else {
         res.send(results);
