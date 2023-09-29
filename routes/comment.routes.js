@@ -36,6 +36,7 @@ commentRoutes.get("/list", (req, res, next) => {
 
 commentRoutes.delete("/:commentID", (req, res, next) => {
   try {
+    const commentID = req.params.commentID;
     let deleteCommentQuery = `DELETE FROM Comments WHERE id =${commentID}`;
     connection.query(deleteCommentQuery, (err, results) => {
       if (err) {
@@ -52,7 +53,8 @@ commentRoutes.delete("/:commentID", (req, res, next) => {
 commentRoutes.put("/:commentID", (req, res, next) => {
   try {
     const body = req.body;
-    let updateCommentQuery = `UPDATE Comments SET body =${body.body} WHERE id =${commentID}`;
+    const commentID = req.params.commentID;
+    let updateCommentQuery = `UPDATE Comments SET body = "${body.body}" WHERE id =${commentID}`;
     connection.query(updateCommentQuery, (err, results) => {
       if (err) {
         res.send(null);
