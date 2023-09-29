@@ -35,6 +35,7 @@ userRoutes.get("/list", (req, res, next) => {
 
 userRoutes.delete("/:userID", (req, res, next) => {
   try {
+    const userID = req.params.userID;
     let deleteUserQuery = `DELETE FROM Users WHERE id =${userID}`;
     connection.query(deleteUserQuery, (err, results) => {
       if (err) {
@@ -52,7 +53,7 @@ userRoutes.put("/:userID", (req, res, next) => {
   try {
     const body = req.body;
     let userID = req.params.userID;
-    let updateQuery = `UPDATE Users SET first_name=${body.first_name},last_name=${body.last_name},username=${body.username},password=${body.password},phone=${body.phone},city=${body.city},email=${body.email},address=${body.address},score=${body.score} WHERE id=${userID}`;
+    let updateQuery = `UPDATE Users SET first_name="${body.first_name}",last_name="${body.last_name}",username="${body.username}",password="${body.password}",phone="${body.phone}",city="${body.city}",email="${body.email}",address="${body.address}",score=${body.score} WHERE id=${userID}`;
     connection.query(updateQuery, (err, results) => {
       if (err) {
         res.send(null);
