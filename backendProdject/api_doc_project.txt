@@ -1,0 +1,33 @@
+mainUrl : "http://localhost:4000/api
+
+1.Get All Products With Category
+    sub_route : /products
+    method : GET
+
+2.Get main products all details
+    sub_route : /product/:productUrl
+    req params => productUrl => url of product
+    method : GET
+
+3.Add new product to user basket
+    sub_route : /basket/userID
+    req params => userID => id of user
+    req body {
+        productID,
+        productImg,
+        productTitle,
+        productPrice,
+        productUrl
+    }
+    method:POST
+
+4.Increase product count in user basket
+    sub_route : /basket/userID/productID
+    req params => userID => id of user
+    req params => productID => id of product
+    method : PUT
+
+5.Get all product to basket of main user
+    method : GET
+    sub_route : /baskets/products/userID
+    req params => userID => id of user
