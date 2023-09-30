@@ -5,7 +5,7 @@ mainUrl : "http://localhost:4000/api
     method : GET
 
 2.Get main products all details
-    sub_route : /products/:productID
+    sub_route : /product/:productID
     req params => productID => id of product
     method : GET
 
