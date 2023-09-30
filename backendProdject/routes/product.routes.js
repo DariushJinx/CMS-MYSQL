@@ -3,10 +3,10 @@ const separatedProductsByCategory = require("../utils/utils");
 
 const productRoutes = require("express").Router();
 
-productRoutes.get("/:productID", (req, res, next) => {
+productRoutes.get("/:productUrl", (req, res, next) => {
   try {
-    const productID = req.params.productID;
-    const getMainProductQuery = `SELECT * FROM Products WHERE id=${productID}`;
+    const productUrl = req.params.productUrl;
+    const getMainProductQuery = `SELECT * FROM Products WHERE url="${productUrl}"`;
     connection.query(getMainProductQuery, (err, results) => {
       if (err) {
         res.send(null);
