@@ -36,4 +36,20 @@ basketRoutes.put("/:userID/:productID", (req, res, next) => {
   }
 });
 
+basketRoutes.put("/products/:userID", (req, res, next) => {
+  try {
+    const userID = req.params.userID;
+    let getAllProductOfMainUserQuery = `SELECT * FROM Baskets WHERE userID =${userID}`;
+    connection.query(getAllProductOfMainUserQuery, (err, result) => {
+      if (err) {
+        res.send(null);
+      } else {
+        res.send(result);
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = basketRoutes;
